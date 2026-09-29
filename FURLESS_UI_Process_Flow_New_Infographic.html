@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Furless Digital Platform — Experience Blueprint</title>
+<style>
+:root{
+  --ink:#0e2431; --muted:#617782; --line:#d9e7ea; --bg:#f4fafb;
+  --navy:#082f47; --navy2:#0a4860; --teal:#13b8ae; --aqua:#73ddd5;
+  --blue:#407cff; --purple:#7657e8; --pink:#e2539b; --orange:#f59e0b;
+  --green:#1db77a; --red:#ef5965; --white:#fff;
+  --shadow:0 24px 60px rgba(11,55,72,.12);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:
+    radial-gradient(circle at 10% -10%,rgba(19,184,174,.15),transparent 28%),
+    radial-gradient(circle at 100% 10%,rgba(64,124,255,.12),transparent 26%),
+    linear-gradient(180deg,#fbfeff 0%,#eef8fa 100%);
+  color:var(--ink);
+}
+button,input{font:inherit}
+.shell{max-width:1500px;margin:auto;padding:24px}
+.topbar{
+  position:sticky;top:12px;z-index:50;
+  display:flex;align-items:center;justify-content:space-between;gap:18px;
+  background:rgba(255,255,255,.83);backdrop-filter:blur(22px);
+  border:1px solid rgba(217,231,234,.9);border-radius:22px;padding:12px 15px;
+  box-shadow:0 18px 42px rgba(11,55,72,.08)
+}
+.brand{display:flex;gap:12px;align-items:center}
+.brandmark{width:46px;height:46px;border-radius:16px;position:relative;overflow:hidden;background:#0d3248}
+.brandmark:before,.brandmark:after{content:"";position:absolute;border-radius:50%}
+.brandmark:before{width:38px;height:38px;left:-4px;top:10px;background:linear-gradient(135deg,var(--teal),var(--aqua))}
+.brandmark:after{width:30px;height:30px;right:-3px;top:-3px;background:linear-gradient(135deg,var(--blue),var(--purple))}
+.brand b{font-size:16px;letter-spacing:-.02em}
+.brand small{display:block;color:var(--muted);font-size:10px;margin-top:2px;letter-spacing:.08em;font-weight:800}
+.mode{display:flex;gap:7px;overflow:auto}
+.mode button{
+  border:1px solid var(--line);background:#fff;color:#4d6873;font-weight:800;font-size:11px;
+  border-radius:999px;padding:9px 13px;white-space:nowrap;cursor:pointer;transition:.25s
+}
+.mode button.active{background:linear-gradient(135deg,var(--navy),var(--teal));color:#fff;border-color:transparent;box-shadow:0 10px 22px rgba(19,184,174,.22)}
+.hero{
+  margin-top:22px;border-radius:34px;padding:38px;
+  background:
+    radial-gradient(circle at 90% 15%,rgba(115,221,213,.25),transparent 20%),
+    radial-gradient(circle at 75% 85%,rgba(64,124,255,.24),transparent 25%),
+    linear-gradient(135deg,#082f47 0%,#0a5062 52%,#0b6d78 100%);
+  color:#fff;box-shadow:var(--shadow);position:relative;overflow:hidden;
+  display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center
+}
+.hero:after{content:"";position:absolute;inset:auto -90px -170px auto;width:420px;height:420px;border-radius:50%;border:1px solid rgba(255,255,255,.13)}
+.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.2em;font-weight:900;color:#8cf2ea}
+.hero h1{font-size:52px;line-height:1.01;letter-spacing:-.045em;margin:8px 0 14px;max-width:760px}
+.hero p{margin:0;max-width:760px;color:#d9edf0;font-size:15px;line-height:1.65}
+.hero-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.hero-tags span{font-size:10px;font-weight:850;padding:8px 11px;border-radius:999px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.08)}
+.orbit{position:relative;min-height:340px}
+.core{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:160px;height:160px;border-radius:40px;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.25);
+  backdrop-filter:blur(14px);display:grid;place-items:center;text-align:center;box-shadow:0 25px 50px rgba(0,0,0,.15)
+}
+.core b{font-size:20px}.core span{display:block;font-size:10px;color:#dceff1;margin-top:5px}
+.orbit-card{position:absolute;width:145px;padding:13px;border-radius:18px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(12px)}
+.orbit-card b{display:block;font-size:12px}.orbit-card span{font-size:9px;color:#d7edef;display:block;margin-top:3px;line-height:1.35}
+.oc1{left:0;top:24px}.oc2{right:0;top:28px}.oc3{left:10px;bottom:22px}.oc4{right:8px;bottom:26px}
+.connector{position:absolute;inset:0;pointer-events:none}
+.panel{display:none;margin-top:20px}.panel.active{display:block}
+.card{
+  background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:28px;padding:24px;box-shadow:0 18px 46px rgba(14,62,78,.07)
+}
+.section-title{display:flex;justify-content:space-between;gap:20px;align-items:flex-end;margin-bottom:18px}
+.section-title h2{font-size:30px;letter-spacing:-.035em;margin:0;color:var(--navy)}
+.section-title p{margin:0;color:var(--muted);font-size:12px;line-height:1.55;max-width:600px}
+.infographic-flow{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;position:relative}
+.infographic-flow:before{content:"";position:absolute;left:5%;right:5%;top:34px;height:2px;background:linear-gradient(90deg,var(--teal),var(--blue),var(--purple));z-index:0}
+.stage{position:relative;z-index:1;text-align:center}
+.stage .bubble{width:68px;height:68px;margin:0 auto 10px;border-radius:23px;display:grid;place-items:center;font-size:20px;font-weight:900;color:#fff;box-shadow:0 14px 26px rgba(20,100,130,.16);border:4px solid #fff}
+.stage:nth-child(1) .bubble{background:linear-gradient(135deg,var(--teal),#58d5ca)}
+.stage:nth-child(2) .bubble{background:linear-gradient(135deg,#24a8dc,var(--blue))}
+.stage:nth-child(3) .bubble{background:linear-gradient(135deg,var(--blue),var(--purple))}
+.stage:nth-child(4) .bubble{background:linear-gradient(135deg,var(--purple),#a84fd3)}
+.stage:nth-child(5) .bubble{background:linear-gradient(135deg,#cb4ca4,var(--pink))}
+.stage:nth-child(6) .bubble{background:linear-gradient(135deg,var(--orange),#ef725f)}
+.stage b{font-size:12px;color:var(--navy)}.stage span{display:block;color:var(--muted);font-size:9px;line-height:1.35;margin:5px auto 0;max-width:130px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.roles{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}
+.role{font-size:9.5px;font-weight:850;padding:7px 10px;border-radius:999px;background:#eef8f8;border:1px solid #d6e9e7;color:#3d6870}
+.phone-row{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;align-items:flex-start}
+.phone{width:292px;background:linear-gradient(180deg,#102e3b,#193f4c);border-radius:40px;padding:9px;box-shadow:0 26px 54px rgba(11,55,72,.18);transform:translateZ(0)}
+.screen{background:linear-gradient(180deg,#fbfdfe,#eef6f9);border-radius:31px;padding:13px;min-height:615px;overflow:hidden}
+.notch{width:92px;height:17px;background:#0b2a36;border-radius:0 0 12px 12px;margin:-13px auto 11px}
+.appbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.appbar b{font-size:13px;color:var(--navy)}.appbar small{font-size:8px;color:#70858d}
+.welcome{padding:14px;border-radius:18px;background:linear-gradient(135deg,#e4faf7,#ecf3ff);border:1px solid #d6e6eb}
+.welcome b{font-size:14px;color:var(--navy)}.welcome p{font-size:8.5px;color:#637b85;line-height:1.4;margin:4px 0 0}
+.cta2{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:10px}.appbtn{padding:9px 8px;text-align:center;border-radius:11px;font-size:8.5px;font-weight:900}.appbtn.primary{background:linear-gradient(135deg,var(--teal),#4bcfc6);color:#fff}.appbtn.secondary{background:#fff;border:1px solid var(--line);color:#335b66}
+.mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:9px}
+.mini{padding:10px;border-radius:13px;background:#fff;border:1px solid var(--line)}.mini b{display:block;font-size:11px;color:var(--navy)}.mini span{font-size:7.8px;color:#70848c;display:block;margin-top:2px}
+.activity{display:grid;gap:7px;margin-top:9px}.activity .row{display:flex;gap:8px;padding:9px;background:#fff;border:1px solid var(--line);border-radius:13px}.picto{width:30px;height:30px;flex:0 0 30px;border-radius:10px;display:grid;place-items:center;font-size:9px;font-weight:900;color:#fff;background:linear-gradient(135deg,var(--teal),var(--blue))}
+.row b{font-size:9.2px;color:var(--navy);display:block}.row span{font-size:7.6px;color:#72868e;display:block;margin-top:2px;line-height:1.3}
+.navbar{margin-top:10px;padding:7px;border:1px solid var(--line);background:#fff;border-radius:13px;display:grid;grid-template-columns:repeat(4,1fr);gap:4px}.navbar div{text-align:center;font-size:7px;font-weight:800;color:#617983}.navbar strong{display:block;font-size:11px;color:var(--teal)}
+.command{
+  background:linear-gradient(180deg,#fbfeff,#f2f8fa);border:1px solid var(--line);border-radius:24px;padding:18px;min-height:620px
+}
+.command-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:13px}
+.command-head b{font-size:17px;color:var(--navy)}.live{font-size:9px;font-weight:900;color:#178f6b;background:#e9f8f1;border:1px solid #cdebdc;padding:6px 9px;border-radius:999px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.stat{padding:12px;border-radius:15px;background:#fff;border:1px solid var(--line)}.stat b{display:block;font-size:20px;color:var(--navy)}.stat span{font-size:8px;color:#6c8189}
+.chart{margin-top:12px;border:1px solid var(--line);border-radius:18px;background:white;padding:13px;height:180px;position:relative;overflow:hidden}
+.chart svg{width:100%;height:100%}.chart-title{font-size:10px;font-weight:850;color:#53707a;margin-bottom:5px}
+.board{display:grid;grid-template-columns:1.35fr .65fr;gap:10px;margin-top:10px}
+.queue,.sidecard{background:#fff;border:1px solid var(--line);border-radius:16px;padding:11px}.queue b,.sidecard b{font-size:10px;color:var(--navy)}
+.queue-list{display:grid;gap:6px;margin-top:8px}.q{display:flex;justify-content:space-between;gap:8px;padding:7px;border-radius:10px;background:#f6fafb;font-size:8px;color:#5c7680}.pill{font-size:7px;font-weight:900;padding:4px 6px;border-radius:999px;background:#e9f7f5;color:#117b75}
+.process-map{position:relative;border:1px solid var(--line);border-radius:26px;background:linear-gradient(180deg,#fff,#f4fafb);padding:24px;overflow:hidden}
+.process-row{display:grid;grid-template-columns:repeat(7,1fr);gap:11px;align-items:center}
+.node{position:relative;padding:14px 10px;border-radius:16px;background:#fff;border:1px solid var(--line);min-height:95px;text-align:center;box-shadow:0 8px 18px rgba(17,67,82,.05)}
+.node:not(:last-child):after{content:"";position:absolute;right:-12px;top:47%;width:12px;height:2px;background:linear-gradient(90deg,var(--teal),var(--blue))}
+.node i{width:31px;height:31px;margin:0 auto 7px;border-radius:11px;background:linear-gradient(135deg,var(--teal),var(--blue));display:grid;place-items:center;color:#fff;font-style:normal;font-size:9px;font-weight:900}
+.node b{font-size:10px;color:var(--navy);display:block}.node span{display:block;font-size:7.8px;color:#71858d;margin-top:3px;line-height:1.3}
+.browser{border:1px solid #cfdee3;border-radius:24px;overflow:hidden;background:#fff;box-shadow:0 20px 46px rgba(13,55,70,.11)}
+.browserbar{height:42px;background:#eef5f7;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:6px;padding:0 13px}.bdot{width:9px;height:9px;border-radius:50%;background:#b9ccd1}.address{margin-left:8px;flex:1;background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 11px;color:#788d95;font-size:9px}
+.webhero{padding:30px;background:linear-gradient(135deg,#082f47,#0c6a73);color:#fff;display:grid;grid-template-columns:1.15fr .85fr;gap:18px}.webhero h3{font-size:30px;line-height:1.04;margin:0}.webhero p{font-size:10px;color:#d7ecef;line-height:1.55}.portalbox{padding:14px;border-radius:18px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.21)}.portalbox b{font-size:14px}.portalbox span{display:block;font-size:8.5px;color:#d8edef;margin-top:5px;line-height:1.35}
+.webtiles{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:16px}.wt{padding:12px;border:1px solid var(--line);border-radius:15px}.wt b{font-size:11px;color:var(--navy);display:block}.wt span{font-size:8.2px;color:#6c828b;line-height:1.4;display:block;margin-top:4px}
+.arch{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;align-items:center}
+.archbox{padding:15px;border:1px solid var(--line);border-radius:18px;background:#fff;text-align:center;min-height:110px;position:relative}
+.archbox:not(:last-child):after{content:"→";position:absolute;right:-17px;top:38%;font-size:20px;font-weight:900;color:#35a9c7}
+.archbox strong{display:block;font-size:13px;color:var(--navy)}.archbox span{display:block;font-size:9px;color:#6b818a;line-height:1.4;margin-top:5px}.arch-ico{width:38px;height:38px;margin:0 auto 8px;border-radius:13px;background:linear-gradient(135deg,#e8f8f6,#e9f1ff);display:grid;place-items:center;color:#0b7b79;font-weight:900}
+.api-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:13px}.api{padding:13px;border-radius:16px;background:#fff;border:1px solid var(--line)}.api b{font-size:10px;color:var(--navy)}.api code{display:block;margin-top:7px;padding:7px;background:#f2f7f8;color:#0e7180;border-radius:8px;font-size:7.8px;word-break:break-word}
+.caption{margin-top:12px;padding:12px 14px;border-radius:15px;background:linear-gradient(90deg,#eef9f7,#eef4fb);border:1px solid #d6e7ea;color:#4e707a;font-size:10.5px;line-height:1.5}
+@keyframes float{50%{transform:translateY(-5px)}}.phone:nth-child(1){animation:float 5s ease-in-out infinite}.phone:nth-child(2){animation:float 5s 1s ease-in-out infinite}
+@media(max-width:1100px){
+  .hero,.two{grid-template-columns:1fr}.hero h1{font-size:45px}.infographic-flow{grid-template-columns:repeat(3,1fr)}.infographic-flow:before{display:none}
+  .stats{grid-template-columns:1fr 1fr}.board{grid-template-columns:1fr}.process-row{grid-template-columns:repeat(4,1fr)}.node:after{display:none}.arch{grid-template-columns:repeat(2,1fr)}.archbox:after{display:none}.api-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:680px){
+  .shell{padding:11px}.topbar{top:7px;border-radius:17px;padding:10px}.brand small{display:none}.brandmark{width:39px;height:39px}.mode button{font-size:10px;padding:8px 10px}
+  .hero{padding:24px;border-radius:25px}.hero h1{font-size:34px}.hero p{font-size:12px}.orbit{min-height:290px}.core{width:125px;height:125px;border-radius:31px}.orbit-card{width:118px;padding:10px}.orbit-card b{font-size:10px}.orbit-card span{font-size:7.8px}
+  .card{padding:15px;border-radius:21px}.section-title{display:block}.section-title h2{font-size:24px}.section-title p{margin-top:6px}.infographic-flow{grid-template-columns:1fr 1fr}.stage .bubble{width:58px;height:58px;border-radius:19px}
+  .two,.three{grid-template-columns:1fr}.phone{width:100%;max-width:360px}.command{min-height:auto}.process-row,.arch,.api-grid,.webtiles{grid-template-columns:1fr}.webhero{grid-template-columns:1fr;padding:22px}.webhero h3{font-size:24px}
+}
+</style>
+</head>
+<body>
+<div class="shell">
+  <div class="topbar">
+    <div class="brand"><div class="brandmark"></div><div><b>FURLESS Digital Platform</b><small>NEW EXPERIENCE BLUEPRINT • APP / WEB / ODOO API</small></div></div>
+    <div class="mode">
+      <button class="active" data-view="overview">Overview</button>
+      <button data-view="internal">Internal App</button>
+      <button data-view="customer">Customer App</button>
+      <button data-view="web">Website</button>
+      <button data-view="backend">Backend / API</button>
+    </div>
+  </div>
+
+  <section class="hero">
+    <div>
+      <div class="eyebrow">Furless Digital Experience • Concept v3</div>
+      <h1>One connected operating experience — designed like a modern digital product.</h1>
+      <p>Role-aware internal operations, customer engagement, website journeys and real-time Odoo workflows presented in one premium visual language.</p>
+      <div class="hero-tags"><span>Odoo 16 Backend</span><span>Flutter Android/iOS</span><span>Role-Aware API</span><span>Real-Time Dashboards</span><span>Customer Portal</span></div>
+    </div>
+    <div class="orbit">
+      <svg class="connector" viewBox="0 0 500 350" preserveAspectRatio="none">
+        <path d="M250 175 C175 115 155 80 95 75" fill="none" stroke="rgba(134,240,232,.35)" stroke-width="2"/>
+        <path d="M250 175 C330 110 345 88 420 78" fill="none" stroke="rgba(134,240,232,.35)" stroke-width="2"/>
+        <path d="M250 175 C175 235 155 275 100 285" fill="none" stroke="rgba(134,240,232,.35)" stroke-width="2"/>
+        <path d="M250 175 C330 235 355 272 425 282" fill="none" stroke="rgba(134,240,232,.35)" stroke-width="2"/>
+      </svg>
+      <div class="core"><div><b>FURLESS</b><span>Digital Core</span></div></div>
+      <div class="orbit-card oc1"><b>Employee Hub</b><span>Attendance • tasks • incidents • assets</span></div>
+      <div class="orbit-card oc2"><b>Customer App</b><span>Explore • book • approve • track</span></div>
+      <div class="orbit-card oc3"><b>Web Portal</b><span>Services • enquiries • proposal status</span></div>
+      <div class="orbit-card oc4"><b>Command Center</b><span>KPIs • approvals • exceptions • alerts</span></div>
+    </div>
+  </section>
+
+  <div id="overview" class="panel active">
+    <section class="card">
+      <div class="section-title"><div><h2>Transformation Journey</h2><p>A simple, infographic-first way to explain the solution from foundation through intelligent automation.</p></div></div>
+      <div class="infographic-flow">
+        <div class="stage"><div class="bubble">01</div><b>Foundation</b><span>Identity, network, security, roles</span></div>
+        <div class="stage"><div class="bubble">02</div><b>Digitize</b><span>Apps, workflows, digital approvals</span></div>
+        <div class="stage"><div class="bubble">03</div><b>Integrate</b><span>ERP, website, mobile, channels</span></div>
+        <div class="stage"><div class="bubble">04</div><b>Automate</b><span>Tasks, alerts, approvals, journeys</span></div>
+        <div class="stage"><div class="bubble">05</div><b>AI Assist</b><span>Search, recommendations, support</span></div>
+        <div class="stage"><div class="bubble">06</div><b>Scale</b><span>Branches, users, services, markets</span></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="section-title"><div><h2>One Platform, Four Experiences</h2><p>Each audience sees a different experience, but everything runs through the same governed Odoo API and business rules.</p></div></div>
+      <div class="three">
+        <div class="command">
+          <div class="command-head"><b>Executive Command Center</b><span class="live">● LIVE</span></div>
+          <div class="stats">
+            <div class="stat"><b>42</b><span>Open Pipeline</span></div><div class="stat"><b>7</b><span>Pending Approvals</span></div><div class="stat"><b>12</b><span>Active Projects</span></div><div class="stat"><b>3</b><span>Critical Exceptions</span></div>
+          </div>
+          <div class="chart"><div class="chart-title">Business Pulse • last 14 days</div><svg viewBox="0 0 420 130"><polyline fill="none" stroke="#13b8ae" stroke-width="4" points="0,100 35,92 65,95 95,60 125,72 155,50 185,58 215,34 245,43 275,28 305,40 335,18 365,32 420,12"/><polyline fill="none" stroke="#407cff" stroke-width="3" opacity=".75" points="0,116 40,106 80,110 120,96 160,86 200,94 240,72 280,78 320,56 360,64 420,42"/></svg></div>
+          <div class="board">
+            <div class="queue"><b>Attention Queue</b><div class="queue-list"><div class="q"><span>Proposal approval • Wellness Program</span><span class="pill">Approve</span></div><div class="q"><span>Payment evidence • Customer #F-2048</span><span class="pill">Review</span></div><div class="q"><span>Incident • Branch connectivity</span><span class="pill">High</span></div></div></div>
+            <div class="sidecard"><b>Operational Health</b><div style="font-size:30px;font-weight:900;color:#13b8ae;margin-top:13px">96.8%</div><div style="font-size:8px;color:#6d828a;margin-top:2px">SLA + API + workflow health</div></div>
+          </div>
+        </div>
+        <div class="phone">
+          <div class="screen"><div class="notch"></div><div class="appbar"><div><b>Employee Hub</b><small>Internal workforce app</small></div><small>9:12</small></div>
+          <div class="welcome"><b>Good morning, Sarah</b><p>Today you have 4 tasks, 1 approval and a verified branch check-in window.</p><div class="cta2"><div class="appbtn primary">Check In</div><div class="appbtn secondary">Check Out</div></div></div>
+          <div class="mini-grid"><div class="mini"><b>04</b><span>My Tasks</span></div><div class="mini"><b>01</b><span>Incidents</span></div><div class="mini"><b>08:45</b><span>Hours Today</span></div><div class="mini"><b>02</b><span>Requests</span></div></div>
+          <div class="activity"><div class="row"><div class="picto">T</div><div><b>Branch readiness checklist</b><span>Due 11:00 • Operations</span></div></div><div class="row"><div class="picto">!</div><div><b>Report an issue</b><span>Photo • category • priority • note</span></div></div><div class="row"><div class="picto">A</div><div><b>Asset / material request</b><span>Submit and track approval</span></div></div></div>
+          <div class="navbar"><div><strong>⌂</strong>Home</div><div><strong>⌚</strong>Attendance</div><div><strong>☑</strong>Tasks</div><div><strong>☰</strong>More</div></div></div>
+        </div>
+        <div class="phone">
+          <div class="screen"><div class="notch"></div><div class="appbar"><div><b>Furless</b><small>Customer experience</small></div><small>9:41</small></div>
+          <div class="welcome" style="background:linear-gradient(135deg,#0b3e57,#13b8ae);border:none;color:white"><b style="color:white">Discover. Book. Track.</b><p style="color:#dcf5f2">One premium journey from consultation to service completion.</p><div class="cta2"><div class="appbtn" style="background:white;color:#0a3f55">Book Consultation</div><div class="appbtn" style="border:1px solid rgba(255,255,255,.35);color:white">My Requests</div></div></div>
+          <div class="mini-grid"><div class="mini"><b>Services</b><span>Explore catalogue</span></div><div class="mini"><b>Booking</b><span>Consultations</span></div><div class="mini"><b>Payment</b><span>Commercial status</span></div><div class="mini"><b>Support</b><span>Chat & follow-up</span></div></div>
+          <div class="activity"><div class="row"><div class="picto">01</div><div><b>Consultation submitted</b><span>Awaiting advisor review</span></div></div><div class="row"><div class="picto">02</div><div><b>Proposal ready</b><span>Review scope and terms</span></div></div><div class="row"><div class="picto">03</div><div><b>Service status</b><span>Track progress and updates</span></div></div></div>
+          <div class="navbar"><div><strong>⌂</strong>Home</div><div><strong>✦</strong>Services</div><div><strong>✓</strong>Status</div><div><strong>☰</strong>More</div></div></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div id="internal" class="panel">
+    <section class="card">
+      <div class="section-title"><div><h2>Internal Employee & Management App</h2><p>One Flutter build. The API determines the role, menu, KPIs and allowed actions after login.</p></div></div>
+      <div class="roles"><span class="role">Owner</span><span class="role">CEO</span><span class="role">Manager</span><span class="role">CRM</span><span class="role">HR</span><span class="role">Accounts</span><span class="role">Project</span><span class="role">IT</span><span class="role">Employee</span><span class="role">Driver / Field</span></div>
+      <div class="process-map"><div class="process-row">
+        <div class="node"><i>01</i><b>Login</b><span>Secure token + session</span></div>
+        <div class="node"><i>02</i><b>Role Profile</b><span>Permissions from API</span></div>
+        <div class="node"><i>03</i><b>Dashboard</b><span>KPIs + quick actions</span></div>
+        <div class="node"><i>04</i><b>Work</b><span>Tasks / leads / HR / IT</span></div>
+        <div class="node"><i>05</i><b>Action</b><span>Update / approve / submit</span></div>
+        <div class="node"><i>06</i><b>Odoo</b><span>Business rules + audit</span></div>
+        <div class="node"><i>07</i><b>Refresh</b><span>Live KPI + notifications</span></div>
+      </div></div>
+    </section>
+    <section class="card">
+      <div class="two">
+        <div>
+          <div class="section-title"><div><h2>Employee Daily Experience</h2><p>Attendance, tasks, incident reporting and requests are designed as quick mobile actions rather than ERP screens.</p></div></div>
+          <div class="phone-row"><div class="phone"><div class="screen"><div class="notch"></div><div class="appbar"><div><b>Employee Hub</b><small>Dubai Branch</small></div><small>Live</small></div><div class="welcome"><b>Ready for today?</b><p>GPS verified • branch geofence detected</p><div class="cta2"><div class="appbtn primary">Check In</div><div class="appbtn secondary">Check Out</div></div></div><div class="mini-grid"><div class="mini"><b>05</b><span>Tasks</span></div><div class="mini"><b>01</b><span>Incident</span></div><div class="mini"><b>02</b><span>Approvals</span></div><div class="mini"><b>01</b><span>Asset Request</span></div></div><div class="activity"><div class="row"><div class="picto">☑</div><div><b>Opening checklist</b><span>7/9 complete • due 10:00</span></div></div><div class="row"><div class="picto">!</div><div><b>Report incident</b><span>Add photo, category, impact</span></div></div><div class="row"><div class="picto">L</div><div><b>Leave request</b><span>Manager approval workflow</span></div></div></div><div class="navbar"><div><strong>⌂</strong>Home</div><div><strong>⌚</strong>Attendance</div><div><strong>☑</strong>Tasks</div><div><strong>☰</strong>More</div></div></div></div></div>
+        </div>
+        <div>
+          <div class="section-title"><div><h2>Manager / Executive View</h2><p>Leadership sees decisions, risk and exceptions — not the employee menu.</p></div></div>
+          <div class="command"><div class="command-head"><b>Management Pulse</b><span class="live">● LIVE</span></div><div class="stats"><div class="stat"><b>143</b><span>Employees</span></div><div class="stat"><b>92%</b><span>Present</span></div><div class="stat"><b>09</b><span>Pending Approval</span></div><div class="stat"><b>04</b><span>Operational Alerts</span></div></div><div class="chart"><div class="chart-title">Attendance & productivity trend</div><svg viewBox="0 0 420 130"><path d="M0 95 C60 70,90 105,130 62 S220 80,260 45 S340 65,420 28" fill="none" stroke="#13b8ae" stroke-width="4"/><path d="M0 110 C70 90,110 115,165 82 S260 94,310 58 S370 76,420 54" fill="none" stroke="#407cff" stroke-width="3"/></svg></div><div class="queue"><b>Decision Queue</b><div class="queue-list"><div class="q"><span>Leave request • Employee #102</span><span class="pill">Approve</span></div><div class="q"><span>Asset request • Sales Team</span><span class="pill">Review</span></div><div class="q"><span>Incident • Branch network</span><span class="pill">High</span></div></div></div></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div id="customer" class="panel">
+    <section class="card">
+      <div class="section-title"><div><h2>Customer App Journey</h2><p>A modern consumer-style journey from discovery through consultation, proposal, payment and service tracking.</p></div></div>
+      <div class="process-map"><div class="process-row">
+        <div class="node"><i>01</i><b>Discover</b><span>Services & branches</span></div>
+        <div class="node"><i>02</i><b>Consultation</b><span>Book or request advice</span></div>
+        <div class="node"><i>03</i><b>Proposal</b><span>Scope + commercial</span></div>
+        <div class="node"><i>04</i><b>Approve</b><span>Digital acceptance</span></div>
+        <div class="node"><i>05</i><b>Payment</b><span>Submit & confirm</span></div>
+        <div class="node"><i>06</i><b>Track</b><span>Status + notifications</span></div>
+        <div class="node"><i>07</i><b>Support</b><span>Chat + follow-up</span></div>
+      </div></div>
+    </section>
+    <section class="card">
+      <div class="phone-row">
+        <div class="phone"><div class="screen"><div class="notch"></div><div class="appbar"><div><b>Furless</b><small>Discover services</small></div><small>9:41</small></div><div class="welcome" style="background:linear-gradient(135deg,#093e57,#13b8ae);border:none"><b style="color:white">A simpler way to start your journey.</b><p style="color:#dff7f4">Explore services, choose a branch and book a consultation.</p><div class="cta2"><div class="appbtn" style="background:#fff;color:#093e57">Explore Services</div><div class="appbtn" style="color:#fff;border:1px solid rgba(255,255,255,.4)">Book</div></div></div><div class="mini-grid"><div class="mini"><b>Popular</b><span>Most requested services</span></div><div class="mini"><b>Near Me</b><span>Branch finder</span></div></div><div class="activity"><div class="row"><div class="picto">✦</div><div><b>Skin & wellness consultation</b><span>Available this week</span></div></div><div class="row"><div class="picto">✦</div><div><b>Premium treatment plan</b><span>Personalized recommendations</span></div></div></div><div class="navbar"><div><strong>⌂</strong>Home</div><div><strong>✦</strong>Services</div><div><strong>◎</strong>Bookings</div><div><strong>☰</strong>More</div></div></div></div>
+        <div class="phone"><div class="screen"><div class="notch"></div><div class="appbar"><div><b>My Journey</b><small>Request F-2084</small></div><small>Live</small></div><div class="welcome"><b>Proposal ready for review</b><p>Your advisor has finalized the scope and commercial option.</p><div class="cta2"><div class="appbtn primary">Review & Accept</div><div class="appbtn secondary">Ask Question</div></div></div><div class="activity"><div class="row"><div class="picto">✓</div><div><b>Consultation completed</b><span>18 Sep • Dubai branch</span></div></div><div class="row"><div class="picto">2</div><div><b>Proposal ready</b><span>Waiting for your acceptance</span></div></div><div class="row"><div class="picto">3</div><div><b>Payment</b><span>Available after acceptance</span></div></div><div class="row"><div class="picto">4</div><div><b>Service progress</b><span>Track once activated</span></div></div></div><div class="navbar"><div><strong>⌂</strong>Home</div><div><strong>✓</strong>Status</div><div><strong>▣</strong>Docs</div><div><strong>☰</strong>More</div></div></div></div>
+        <div class="phone"><div class="screen"><div class="notch"></div><div class="appbar"><div><b>Service Progress</b><small>Active</small></div><small>Today</small></div><div class="welcome" style="background:linear-gradient(135deg,#edf9f7,#eef3ff)"><b>Everything in one place.</b><p>Upcoming appointment, payment status, documents and team updates.</p></div><div class="mini-grid"><div class="mini"><b>Paid</b><span>Payment status</span></div><div class="mini"><b>21 Sep</b><span>Next appointment</span></div><div class="mini"><b>04</b><span>Documents</span></div><div class="mini"><b>2</b><span>Unread updates</span></div></div><div class="activity"><div class="row"><div class="picto">✓</div><div><b>Preparation complete</b><span>Team has confirmed readiness</span></div></div><div class="row"><div class="picto">→</div><div><b>Next appointment</b><span>21 Sep • 4:30 PM</span></div></div><div class="row"><div class="picto">☺</div><div><b>Need help?</b><span>Chat with customer care</span></div></div></div><div class="navbar"><div><strong>⌂</strong>Home</div><div><strong>✓</strong>Status</div><div><strong>◉</strong>Support</div><div><strong>☰</strong>More</div></div></div></div>
+      </div>
+    </section>
+  </div>
+
+  <div id="web" class="panel">
+    <section class="card">
+      <div class="section-title"><div><h2>Customer Website & Portal</h2><p>The same branded digital experience works on web — public discovery first, then authenticated proposal and service visibility.</p></div></div>
+      <div class="browser">
+        <div class="browserbar"><span class="bdot"></span><span class="bdot"></span><span class="bdot"></span><div class="address">https://furless.example.com</div></div>
+        <div class="webhero"><div><div class="eyebrow">FURLESS DIGITAL EXPERIENCE</div><h3>One modern front door for services, consultations and ongoing care.</h3><p>Discover services, request consultation, receive approved proposals, track progress and stay connected to the team.</p><div class="hero-tags"><span>Book Consultation</span><span>Track My Request</span><span>Customer Portal</span></div></div><div class="portalbox"><b>Customer Portal</b><span>Proposal status • documents • payments • appointments • service updates • support history</span></div></div>
+        <div class="webtiles"><div class="wt"><b>Service Catalogue</b><span>Dynamic services from the Odoo public API.</span></div><div class="wt"><b>Consultation</b><span>Structured enquiry and booking flow.</span></div><div class="wt"><b>Proposal Centre</b><span>Review and accept approved proposals.</span></div><div class="wt"><b>Status & Support</b><span>Track service progress and communication.</span></div></div>
+      </div>
+    </section>
+  </div>
+
+  <div id="backend" class="panel">
+    <section class="card">
+      <div class="section-title"><div><h2>Backend / API Infographic</h2><p>The user experience stays modern because Odoo keeps the business rules, permissions and data behind a clean REST layer.</p></div></div>
+      <div class="arch">
+        <div class="archbox"><div class="arch-ico">UX</div><strong>Flutter / Web</strong><span>Modern UI, charts, forms, navigation and local state</span></div>
+        <div class="archbox"><div class="arch-ico">API</div><strong>REST /api/v1</strong><span>Bearer token, validation, role and permissions</span></div>
+        <div class="archbox"><div class="arch-ico">ERP</div><strong>Odoo 16</strong><span>CRM, proposals, HR, project, incidents and approvals</span></div>
+        <div class="archbox"><div class="arch-ico">DB</div><strong>PostgreSQL</strong><span>One source of operational truth and audit history</span></div>
+        <div class="archbox"><div class="arch-ico">LIVE</div><strong>Dashboards</strong><span>Role-aware KPIs, alerts, queues and live actions</span></div>
+      </div>
+      <div class="api-grid">
+        <div class="api"><b>Authentication</b><code>POST /api/v1/auth/login</code></div>
+        <div class="api"><b>Role Dashboard</b><code>GET /api/v1/dashboard</code></div>
+        <div class="api"><b>Employee Attendance</b><code>POST /api/v1/attendance/check-in</code></div>
+        <div class="api"><b>Customer Enquiry</b><code>POST /api/v1/public/enquiry</code></div>
+        <div class="api"><b>CRM Leads</b><code>GET|POST /api/v1/crm/leads</code></div>
+        <div class="api"><b>Approvals</b><code>POST /api/v1/proposals/{id}/approve</code></div>
+        <div class="api"><b>Service Delivery</b><code>GET /api/v1/projects • /tasks</code></div>
+        <div class="api"><b>Smart IT</b><code>GET|POST /api/v1/incidents</code></div>
+      </div>
+      <div class="caption"><b>Developer target:</b> demonstrate one end-to-end flow where a web/mobile action changes an Odoo record, updates the correct role dashboard and appears immediately in the management attention queue.</div>
+    </section>
+  </div>
+</div>
+<script>
+const buttons=[...document.querySelectorAll('.mode button')];
+const panels=[...document.querySelectorAll('.panel')];
+buttons.forEach(b=>b.addEventListener('click',()=>{
+  buttons.forEach(x=>x.classList.remove('active')); panels.forEach(x=>x.classList.remove('active'));
+  b.classList.add('active'); document.getElementById(b.dataset.view).classList.add('active');
+  window.scrollTo({top:90,behavior:'smooth'});
+}));
+</script>
+</body>
+</html>
